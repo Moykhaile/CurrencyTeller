@@ -14,7 +14,7 @@ using System.Globalization;
 // Dollar html location: <div class="BNeawe iBp4i AP7Wnd"><div><div class="BNeawe iBp4i AP7Wnd">
 namespace CurrencyTracker
 {
-	public partial class CurrencyTracker : Form
+	public partial class CurrencyTeller : Form
 	{
 		string location = "<div class=\"BNeawe iBp4i AP7Wnd\"><div><div class=\"BNeawe iBp4i AP7Wnd\">";
 
@@ -25,7 +25,7 @@ namespace CurrencyTracker
 		float libra = 0.00f;
 		float iene = 0.00f;
 
-		public CurrencyTracker()
+		public CurrencyTeller()
 		{
 			InitializeComponent();
 		}

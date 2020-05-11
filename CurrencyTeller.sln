@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyTracker", "CurrencyTracker\CurrencyTracker.csproj", "{C50A4D50-15EE-4AB1-9E9C-C001BF6E5AEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyTeller", "CurrencyTeller\CurrencyTeller.csproj", "{C50A4D50-15EE-4AB1-9E9C-C001BF6E5AEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

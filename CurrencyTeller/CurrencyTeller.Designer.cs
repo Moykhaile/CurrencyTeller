@@ -1,6 +1,6 @@
 namespace CurrencyTracker
 {
-	partial class CurrencyTracker
+	partial class CurrencyTeller
 	{
 		/// <summary>
 		/// Variável de designer necessária.
@@ -102,7 +102,7 @@ namespace CurrencyTracker
 			this.AusDolLabel.Text = "A$ 0,00";
 			this.AusDolLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// CurrencyTracker
+			// CurrencyTeller
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -118,9 +118,9 @@ namespace CurrencyTracker
 			this.MaximumSize = new System.Drawing.Size(250, 400);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(250, 400);
-			this.Name = "CurrencyTracker";
+			this.Name = "CurrencyTeller";
 			this.ShowIcon = false;
-			this.Text = "Currency Tracker";
+			this.Text = "Currency Teller";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.Shown += new System.EventHandler(this.Form1_Shown);
 			this.ResumeLayout(false);

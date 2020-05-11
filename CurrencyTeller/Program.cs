@@ -16,7 +16,7 @@ namespace CurrencyTracker
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new CurrencyTracker());
+			Application.Run(new CurrencyTeller());
 		}
 	}
 }
