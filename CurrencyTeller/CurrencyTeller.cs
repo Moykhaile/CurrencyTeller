@@ -22,7 +22,6 @@ namespace CurrencyTracker
 		public CurrencyTeller()
 		{
 			InitializeComponent();
-			SendToBack();
 		}
 
 		private void Form1_Load(object sender, EventArgs e)
@@ -32,16 +31,12 @@ namespace CurrencyTracker
 
 			Thread t = new Thread(new ThreadStart(UpdateCurrency));
 			t.Start();
-
-			SendToBack();
 		}
 
-		private void currencyTimer_Tick(object sender, EventArgs e)
+		private void CurrencyTimer_Tick(object sender, EventArgs e)
 		{
 			Thread t = new Thread(new ThreadStart(UpdateCurrency));
 			t.Start();
-
-			SendToBack();
 		}
 
 		void UpdateCurrency()
@@ -89,7 +84,7 @@ namespace CurrencyTracker
 			}
 			else
 			{
-				LoadingGif.Location = new System.Drawing.Point(12, labels[i].Location.Y + 8);
+				LoadingGif.Location = new System.Drawing.Point(40, labels[i].Location.Y + 16);
 			}
 		}
 		delegate void SetLoadingCallback(bool visible);

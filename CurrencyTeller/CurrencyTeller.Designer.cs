@@ -116,16 +116,16 @@ namespace CurrencyTracker
 			// 
 			this.currencyTimer.Enabled = true;
 			this.currencyTimer.Interval = 60000;
-			this.currencyTimer.Tick += new System.EventHandler(this.currencyTimer_Tick);
+			this.currencyTimer.Tick += new System.EventHandler(this.CurrencyTimer_Tick);
 			// 
 			// LoadingGif
 			// 
 			this.LoadingGif.BackColor = System.Drawing.Color.Transparent;
 			this.LoadingGif.Image = global::CurrencyTracker.Properties.Resources.loading;
 			this.LoadingGif.InitialImage = null;
-			this.LoadingGif.Location = new System.Drawing.Point(12, 20);
+			this.LoadingGif.Location = new System.Drawing.Point(40, 28);
 			this.LoadingGif.Name = "LoadingGif";
-			this.LoadingGif.Size = new System.Drawing.Size(30, 30);
+			this.LoadingGif.Size = new System.Drawing.Size(20, 20);
 			this.LoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.LoadingGif.TabIndex = 6;
 			this.LoadingGif.TabStop = false;
