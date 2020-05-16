@@ -39,21 +39,38 @@ namespace CurrencyTracker
 			t.Start();
 		}
 
+		private void RestartButton_Click(object sender, EventArgs e)
+		{
+			Thread t = new Thread(new ThreadStart(UpdateCurrency));
+			t.Start();
+		}
+
 		void UpdateCurrency()
 		{
+			if (!CheckForInternetConnection()) return;
+
 			for (int i = 0; i < currencies.Length; i++)
 			{
-				SetLoading(true);
-				SetLoadingLocation(i);
+				if (!CheckForInternetConnection()) return;
 
-				string downloadedString = client.DownloadString(googlePage + currencies[i]);
+				try
+				{
+					SetLoading(true);
+					SetLoadingLocation(i);
 
-				float currency = float.Parse(downloadedString.Substring(downloadedString.IndexOf(location) + 71, 4), CultureInfo.InvariantCulture);
-				SetText(currencySigns[i], " " + currency, i);
+					string downloadedString = client.DownloadString(googlePage + currencies[i]);
 
-				Thread.Sleep(0);
+					float currency = float.Parse(downloadedString.Substring(downloadedString.IndexOf(location) + 71, 4), CultureInfo.InvariantCulture);
+					SetText(currencySigns[i], " " + currency, i);
 
-				while (client.IsBusy) { }
+					Thread.Sleep(0);
+
+					while (client.IsBusy) { }
+				}
+				catch
+				{
+					SetLoading(false);
+				}
 			}
 			SetLoading(false);
 		}
@@ -99,6 +116,46 @@ namespace CurrencyTracker
 			{
 				LoadingGif.Visible = visible;
 			}
+		}
+
+		bool CheckForInternetConnection()
+		{
+			bool hasInternet = false;
+
+			try
+			{
+				using (var client = new WebClient())
+				using (client.OpenRead("http://google.com/generate_204"))
+					hasInternet = true;
+			}
+			catch
+			{
+				hasInternet = false;
+			}
+
+			SetInternetConnectionLabel(hasInternet);
+			return hasInternet;
+		}
+
+		delegate void SetInternetConnectionLabelCallback(bool hasInternet);
+		void SetInternetConnectionLabel(bool hasInternet)
+		{
+			if (LoadingGif.InvokeRequired)
+			{
+				SetInternetConnectionLabelCallback d = new SetInternetConnectionLabelCallback(SetInternetConnectionLabel);
+				Invoke(d, new object[] { hasInternet });
+			}
+			else
+			{
+				InternetConnectionLabel.Visible = !hasInternet;
+				RestartButton.Visible = !hasInternet;
+				RestartButton.Enabled = !hasInternet;
+			}
+		}
+
+		private void CheckForInternetConnectionTimer_Tick(object sender, EventArgs e)
+		{
+			CheckForInternetConnection();
 		}
 	}
 }

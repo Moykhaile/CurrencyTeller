@@ -35,8 +35,11 @@ namespace CurrencyTracker
 			this.EuroLabel = new System.Windows.Forms.Label();
 			this.IeneLabel = new System.Windows.Forms.Label();
 			this.AusDolLabel = new System.Windows.Forms.Label();
-			this.currencyTimer = new System.Windows.Forms.Timer(this.components);
+			this.CurrencyTimer = new System.Windows.Forms.Timer(this.components);
 			this.LoadingGif = new System.Windows.Forms.PictureBox();
+			this.InternetConnectionLabel = new System.Windows.Forms.Label();
+			this.RestartButton = new System.Windows.Forms.Button();
+			this.CheckForInternetConnectionTimer = new System.Windows.Forms.Timer(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.LoadingGif)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -112,11 +115,11 @@ namespace CurrencyTracker
 			this.AusDolLabel.Text = "A$ 0,00";
 			this.AusDolLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// currencyTimer
+			// CurrencyTimer
 			// 
-			this.currencyTimer.Enabled = true;
-			this.currencyTimer.Interval = 60000;
-			this.currencyTimer.Tick += new System.EventHandler(this.CurrencyTimer_Tick);
+			this.CurrencyTimer.Enabled = true;
+			this.CurrencyTimer.Interval = 60000;
+			this.CurrencyTimer.Tick += new System.EventHandler(this.CurrencyTimer_Tick);
 			// 
 			// LoadingGif
 			// 
@@ -131,11 +134,48 @@ namespace CurrencyTracker
 			this.LoadingGif.TabStop = false;
 			this.LoadingGif.Visible = false;
 			// 
+			// InternetConnectionLabel
+			// 
+			this.InternetConnectionLabel.AutoSize = true;
+			this.InternetConnectionLabel.BackColor = System.Drawing.Color.Transparent;
+			this.InternetConnectionLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.InternetConnectionLabel.ForeColor = System.Drawing.Color.White;
+			this.InternetConnectionLabel.Location = new System.Drawing.Point(6, 337);
+			this.InternetConnectionLabel.Name = "InternetConnectionLabel";
+			this.InternetConnectionLabel.Size = new System.Drawing.Size(186, 15);
+			this.InternetConnectionLabel.TabIndex = 7;
+			this.InternetConnectionLabel.Text = "No internet connection available";
+			this.InternetConnectionLabel.Visible = false;
+			// 
+			// RestartButton
+			// 
+			this.RestartButton.BackColor = System.Drawing.Color.Transparent;
+			this.RestartButton.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.RestartButton.Enabled = false;
+			this.RestartButton.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.RestartButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(7)))), ((int)(((byte)(27)))));
+			this.RestartButton.Location = new System.Drawing.Point(189, 335);
+			this.RestartButton.Name = "RestartButton";
+			this.RestartButton.Size = new System.Drawing.Size(40, 20);
+			this.RestartButton.TabIndex = 1;
+			this.RestartButton.Text = "Retry";
+			this.RestartButton.UseVisualStyleBackColor = false;
+			this.RestartButton.Visible = false;
+			this.RestartButton.Click += new System.EventHandler(this.RestartButton_Click);
+			// 
+			// CheckForInternetConnectionTimer
+			// 
+			this.CheckForInternetConnectionTimer.Enabled = true;
+			this.CheckForInternetConnectionTimer.Interval = 1000;
+			this.CheckForInternetConnectionTimer.Tick += new System.EventHandler(this.CheckForInternetConnectionTimer_Tick);
+			// 
 			// CurrencyTeller
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(7)))), ((int)(((byte)(27)))));
 			this.ClientSize = new System.Drawing.Size(234, 361);
+			this.Controls.Add(this.RestartButton);
+			this.Controls.Add(this.InternetConnectionLabel);
 			this.Controls.Add(this.LoadingGif);
 			this.Controls.Add(this.AusDolLabel);
 			this.Controls.Add(this.IeneLabel);
@@ -158,6 +198,7 @@ namespace CurrencyTracker
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.LoadingGif)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -169,8 +210,11 @@ namespace CurrencyTracker
 		private System.Windows.Forms.Label EuroLabel;
 		private System.Windows.Forms.Label IeneLabel;
 		private System.Windows.Forms.Label AusDolLabel;
-		private System.Windows.Forms.Timer currencyTimer;
+		private System.Windows.Forms.Timer CurrencyTimer;
 		private System.Windows.Forms.PictureBox LoadingGif;
+		private System.Windows.Forms.Label InternetConnectionLabel;
+		private System.Windows.Forms.Button RestartButton;
+		private System.Windows.Forms.Timer CheckForInternetConnectionTimer;
 	}
 }
 
