@@ -1,25 +1,26 @@
+using Newtonsoft.Json;
 using System;
-using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 // Dollar html location: <div class="BNeawe iBp4i AP7Wnd"><div><div class="BNeawe iBp4i AP7Wnd">
 namespace CurrencyTracker
 {
-	public partial class CurrencyTeller : Form
+	public partial class CurrencyTracker : Form
 	{
 		WebClient client = new WebClient();
-
+		string yahooPath = "https://finance.yahoo.com/quote/";
+		string yahooPathEnd = "%3DX";
 		string location = "<div class=\"BNeawe iBp4i AP7Wnd\"><div><div class=\"BNeawe iBp4i AP7Wnd\">";
-		string googlePage = "https://www.google.com/search?q=";
 
-		string[] currencies = new string[] { "dólar", "dólar+canadense", "dólar+australiano", "euro", "libra+real", "iene" };
-		string[] currencySigns = new string[] { "$", "C$", "A$", "€", "£", "¥" };
-		Label[] labels;
+		string path = AppDomain.CurrentDomain.BaseDirectory;
+		string currenciesFile = @"currencies.json";
 
-		public CurrencyTeller()
+		Currency[] currencies = new Currency[16];
+
+		public CurrencyTracker()
 		{
 			InitializeComponent();
 		}
@@ -27,25 +28,48 @@ namespace CurrencyTracker
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			client.Encoding = Encoding.UTF8;
-			labels = new Label[] { DollarLabel, CaDolLabel, AusDolLabel, EuroLabel, LibraLabel, IeneLabel };
 
-			Thread t = new Thread(new ThreadStart(UpdateCurrency));
-			t.Start();
+			//SaveJson();
+			LoadJson();
+
+			Console.WriteLine(currencies);
+		}
+
+		void LoadJson()
+		{
+			string currenciesPath = path + currenciesFile;
+			Console.WriteLine(currenciesPath);
+			if (File.Exists(currenciesPath))
+			{
+				string jsonString = File.ReadAllText(currenciesPath);
+				currencies = JsonConvert.DeserializeObject(jsonString) as Currency[];
+			}
+		}
+
+		void SaveJson()
+		{
+			string currenciesPath = path + currenciesFile;
+			string jsonString = JsonConvert.SerializeObject(currencies);
 		}
 
 		private void CurrencyTimer_Tick(object sender, EventArgs e)
 		{
-			Thread t = new Thread(new ThreadStart(UpdateCurrency));
-			t.Start();
+			try
+			{
+				foreach (Currency currency in currencies)
+				{
+					Console.WriteLine(currency.currencyName + ", " + currency.isActive);
+				}
+			}
+			catch (Exception error)
+			{
+				Console.WriteLine("Error: {0}", error.Source);
+			}
+			//Thread t = new Thread(new ThreadStart(UpdateCurrency));
+			//t.Start();
 		}
 
-		private void RestartButton_Click(object sender, EventArgs e)
-		{
-			Thread t = new Thread(new ThreadStart(UpdateCurrency));
-			t.Start();
-		}
-
-		void UpdateCurrency()
+		/*void UpdateCurrency()
 		{
 			if (!CheckForInternetConnection()) return;
 
@@ -58,7 +82,7 @@ namespace CurrencyTracker
 					SetLoading(true);
 					SetLoadingLocation(i);
 
-					string downloadedString = client.DownloadString(googlePage + currencies[i]);
+					string downloadedString = client.DownloadString(yahooPage + currencies[i]);
 
 					float currency = float.Parse(downloadedString.Substring(downloadedString.IndexOf(location) + 71, 4), CultureInfo.InvariantCulture);
 					SetText(currencySigns[i], " " + currency, i);
@@ -151,11 +175,21 @@ namespace CurrencyTracker
 				RestartButton.Visible = !hasInternet;
 				RestartButton.Enabled = !hasInternet;
 			}
-		}
-
+		}*/
 		private void CheckForInternetConnectionTimer_Tick(object sender, EventArgs e)
 		{
-			CheckForInternetConnection();
+			//CheckForInternetConnection();
 		}
+
+		private void SettingsButton_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
+
+	public class Currency
+	{
+		public string currencyName { get; set; }
+		public bool isActive { get; set; }
 	}
 }
